@@ -1,0 +1,6 @@
+# Heavier tools used by a few labs in Part II and later. Labs that need them declare it with `# requires: <package>`
+# and are skipped (loudly) when the package is missing. Spark also needs a Java runtime (17 or 21).
+pyspark>=4.0
+dbt-duckdb>=1.8
+catboost>=1.2              # 20.4 (optional section; the lab runs without it)
+umap-learn>=0.5            # 21.4 (optional section; the lab runs without it)

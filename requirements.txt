@@ -1,0 +1,26 @@
+# Core stack. Every lab in the course runs with this set, on CPU.
+numpy>=2.0
+scipy>=1.11
+pandas>=2.1
+pyarrow>=15
+polars>=1.0
+duckdb>=1.0
+fastavro>=1.9
+cryptography>=42
+scikit-learn>=1.4
+statsmodels>=0.14
+matplotlib>=3.8
+torch>=2.3
+torchvision>=0.18
+xgboost>=2.0
+lightgbm>=4.0
+optuna>=3.5
+shap>=0.45
+networkx>=3.2
+
+# Tooling
+pyyaml>=6.0
+tabulate>=0.9
+jupytext>=1.16
+pytest>=8.0
+hypothesis>=6.0

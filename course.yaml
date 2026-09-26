@@ -1,0 +1,1076 @@
+# Single source of truth for the structure of the course.
+# tools/build_docs.py turns this into SYLLABUS.md, STATUS.md and the part/module READMEs.
+# If you move a lesson, move it here first.
+
+title: "No Shortcuts: Data, ML, DL and AI Engineering"
+author: "Gonzalo L. Romero (DeepRat)"
+
+parts:
+  - id: 0
+    dir: part-0-orientation
+    title: "Orientation"
+    blurb: >
+      Three lessons that save you three months. What the job titles really mean, how to set up a machine you
+      won't have to fight, and how to study something this big without lying to yourself.
+    modules:
+      - id: "00"
+        dir: 00-before-you-start
+        title: "Before You Start"
+        hours: 10
+        blurb: >
+          The boring part that everybody skips and then regrets. Read it anyway.
+        outcomes:
+          - "Explain what a Data Engineer, Data Scientist, ML Engineer, DL Engineer and AI Engineer do all day, and where the lines blur."
+          - "Run a Linux or WSL workstation with Git, uv, Python 3.11+, Docker and an editor that doesn't get in your way."
+          - "Plan your study with retrieval practice and projects instead of passive video watching."
+        selfcheck:
+          - "Can you create a Python virtual environment, install a package and pin its version from memory?"
+          - "Can you explain the difference between `git merge` and `git rebase` to a colleague?"
+        lessons:
+          - {id: "00.1", slug: job-titles, title: "What the job titles actually mean"}
+          - {id: "00.2", slug: workstation, title: "Your workstation: Linux, shell, Git, Python environments, Docker"}
+          - {id: "00.3", slug: how-to-study, title: "How to study this without lying to yourself"}
+
+  - id: 1
+    dir: part-1-foundations
+    title: "Foundations"
+    blurb: >
+      Python, linear algebra, calculus, probability, statistics, information theory and computer systems. This is
+      the part people want to skip. It is also the part that separates engineers who understand why their model
+      broke from engineers who restart the kernel and pray.
+    modules:
+      - id: "01"
+        dir: 01-python-for-engineers
+        title: "Python for Engineers"
+        hours: 40
+        blurb: >
+          Not "Python for beginners". Python for people who will write code that other people run at 3 AM.
+        outcomes:
+          - "Use Python's data model (dunder methods, iterators, generators, context managers) to write idiomatic code."
+          - "Write typed, tested, packaged code with pytest and a pyproject.toml."
+          - "Think in arrays: replace Python loops with NumPy vectorized operations and understand broadcasting and memory layout."
+          - "Profile code, find the real bottleneck, and choose between threads, processes and asyncio."
+        selfcheck:
+          - "What does `yield` do, and when is a generator better than a list?"
+          - "Why is `a[:, None] - b[None, :]` fast, and how much memory does it use?"
+          - "When does the GIL actually hurt you?"
+        lessons:
+          - {id: "01.1", slug: data-model-and-idioms, title: "Python's data model and the idioms that matter"}
+          - {id: "01.2", slug: types-tests-packages, title: "Types, tests and packages: code other people can trust"}
+          - {id: "01.3", slug: numpy-vectorization, title: "NumPy and vectorization: thinking in arrays"}
+          - {id: "01.4", slug: performance-concurrency, title: "Performance, profiling and concurrency"}
+
+      - id: "02"
+        dir: 02-linear-algebra
+        title: "Linear Algebra"
+        hours: 45
+        blurb: >
+          Every model in this course is, at the bottom, a pile of matrix multiplications. Let's understand them.
+        outcomes:
+          - "Manipulate vectors, norms, dot products and angles, and use them as similarity measures."
+          - "Treat matrices as linear maps; reason about rank, null space, inverses and conditioning."
+          - "Derive least squares as an orthogonal projection and solve it stably (QR, lstsq) instead of inverting matrices."
+          - "Compute and interpret eigendecompositions and the SVD, and use the SVD for low-rank approximation."
+        selfcheck:
+          - "What is the geometric meaning of the rank of a matrix?"
+          - "Why should you almost never call `np.linalg.inv` to solve a linear system?"
+          - "What do the singular values of a data matrix tell you?"
+        lessons:
+          - {id: "02.1", slug: vectors-norms, title: "Vectors, dot products and norms"}
+          - {id: "02.2", slug: matrices-as-maps, title: "Matrices as functions: multiplication, rank, inverses"}
+          - {id: "02.3", slug: least-squares, title: "Least squares and projections"}
+          - {id: "02.4", slug: eigen-svd, title: "Eigendecomposition and the SVD"}
+
+      - id: "03"
+        dir: 03-calculus-optimization
+        title: "Calculus and Optimization"
+        hours: 40
+        blurb: >
+          Training a model is minimizing a function. This module is about how you minimize functions, and why it
+          sometimes doesn't work.
+        outcomes:
+          - "Compute derivatives, partial derivatives and gradients of the functions used in ML, including matrix expressions."
+          - "Apply the chain rule on computational graphs, which is all backpropagation is."
+          - "Use Jacobians, Hessians and Taylor expansions to reason about local behaviour and curvature."
+          - "Implement gradient descent, reason about step sizes and convexity, and verify gradients numerically."
+          - "Solve constrained problems with Lagrange multipliers and read KKT conditions."
+        selfcheck:
+          - "What is the gradient of f(w) = ||Xw - y||^2 with respect to w?"
+          - "Why does gradient descent zig-zag in a narrow valley?"
+        lessons:
+          - {id: "03.1", slug: derivatives-gradients, title: "Derivatives, gradients and the chain rule"}
+          - {id: "03.2", slug: jacobians-hessians, title: "Jacobians, Hessians and Taylor: the local picture"}
+          - {id: "03.3", slug: gradient-descent-convexity, title: "Gradient descent and convexity"}
+          - {id: "03.4", slug: constrained-optimization, title: "Constrained optimization: Lagrange multipliers and KKT"}
+
+      - id: "04"
+        dir: 04-probability
+        title: "Probability"
+        hours: 40
+        blurb: >
+          Machine learning is applied probability wearing a hoodie. You need to speak it fluently.
+        outcomes:
+          - "Work with discrete and continuous random variables, PMFs, PDFs and CDFs."
+          - "Use the core distributions (Bernoulli, binomial, Poisson, categorical, Gaussian, exponential, beta, multivariate Gaussian) and know where each shows up."
+          - "Apply conditional probability, independence and Bayes' rule, including base rate reasoning."
+          - "Compute expectations, variances and covariances, and explain the law of large numbers and the CLT."
+          - "Derive maximum likelihood and MAP estimators and connect them to loss functions and regularization."
+        selfcheck:
+          - "A test is 99% accurate and the disease affects 1 in 10,000 people. You test positive. Should you panic?"
+          - "Why is minimizing mean squared error the same as maximum likelihood under Gaussian noise?"
+        lessons:
+          - {id: "04.1", slug: random-variables, title: "Random variables and distributions"}
+          - {id: "04.2", slug: conditional-bayes, title: "Joint, conditional and Bayes"}
+          - {id: "04.3", slug: expectation-limit-theorems, title: "Expectation, variance and the limit theorems"}
+          - {id: "04.4", slug: mle-map, title: "Maximum likelihood and MAP"}
+
+      - id: "05"
+        dir: 05-statistics-experimentation
+        title: "Statistics and Experimentation"
+        hours: 40
+        blurb: >
+          The part of data science that decides whether your "improvement" is real or just noise with a nice chart.
+        outcomes:
+          - "Build estimators and confidence intervals, analytically and with the bootstrap."
+          - "Run and interpret hypothesis tests without committing the classic p-value crimes."
+          - "Design, size and analyze A/B tests, including power analysis, peeking and multiple comparisons."
+          - "Reason about causality: confounders, randomization, DAGs, and basic observational methods."
+        selfcheck:
+          - "What does a 95% confidence interval actually claim?"
+          - "Why is checking an A/B test every day and stopping when p < 0.05 a bad idea?"
+        lessons:
+          - {id: "05.1", slug: estimation-bootstrap, title: "Estimation, confidence intervals and the bootstrap"}
+          - {id: "05.2", slug: hypothesis-testing, title: "Hypothesis testing and how people abuse it"}
+          - {id: "05.3", slug: ab-testing, title: "A/B testing: power, peeking and other crimes"}
+          - {id: "05.4", slug: causal-inference, title: "Causal inference for engineers"}
+
+      - id: "06"
+        dir: 06-information-theory
+        title: "Information Theory"
+        hours: 15
+        blurb: >
+          Short module, huge payoff. Cross-entropy loss, KL divergence, perplexity and half of the generative
+          modeling literature suddenly make sense.
+        outcomes:
+          - "Compute entropy, cross-entropy and KL divergence and explain them as coding costs."
+          - "Explain why classifiers and language models are trained with cross-entropy, and what perplexity measures."
+          - "Use mutual information and understand the compression view of learning."
+        selfcheck:
+          - "Why is KL divergence not symmetric, and when does that matter?"
+        lessons:
+          - {id: "06.1", slug: entropy-kl, title: "Entropy, cross-entropy and KL divergence"}
+          - {id: "06.2", slug: mutual-information-compression, title: "Mutual information and learning as compression"}
+
+      - id: "07"
+        dir: 07-computer-systems
+        title: "Computer Systems for ML"
+        hours: 35
+        blurb: >
+          Your model runs on a real machine with real memory, real floating point and a real network. Ignore that and
+          it will remind you, usually in production.
+        outcomes:
+          - "Pick the right data structure and estimate the time and memory complexity of your code."
+          - "Explain IEEE 754 floating point, avoid catastrophic cancellation and overflow, and implement stable log-sum-exp and softmax."
+          - "Reason about caches, memory bandwidth, CPU vs GPU execution and why some operations are memory-bound."
+          - "Work with processes, signals, environment variables, HTTP and REST APIs on Linux."
+        selfcheck:
+          - "Why does `np.exp(1000)` break softmax, and how do you fix it?"
+          - "What is the difference between latency and throughput?"
+        lessons:
+          - {id: "07.1", slug: algorithms-data-structures, title: "Algorithms and data structures ML engineers actually use"}
+          - {id: "07.2", slug: floating-point, title: "Floating point and numerical stability"}
+          - {id: "07.3", slug: the-machine, title: "The machine: memory hierarchy, CPUs and GPUs"}
+          - {id: "07.4", slug: networks-apis-linux, title: "Networks, APIs and Linux processes"}
+
+  - id: 2
+    dir: part-2-data-engineering
+    title: "Data Engineering"
+    blurb: >
+      Models eat data, and somebody has to cook. This part turns you into that somebody: SQL, modeling, formats,
+      distributed processing, orchestration, streaming, and keeping the whole thing secure and observable.
+    modules:
+      - id: "08"
+        dir: 08-sql-relational
+        title: "SQL and Relational Databases"
+        hours: 45
+        blurb: >
+          SQL is fifty years old and it will outlive most of the frameworks you are excited about today.
+        outcomes:
+          - "Write correct SQL for filtering, grouping, joins, subqueries and CTEs, including NULL semantics."
+          - "Use window functions for rankings, running totals, sessionization and deduplication."
+          - "Read query plans, design indexes and fix slow queries."
+          - "Explain transactions, isolation levels, and OLTP vs OLAP workloads."
+        selfcheck:
+          - "What does `COUNT(col)` return that `COUNT(*)` doesn't?"
+          - "Write a query that keeps only the latest row per user."
+        lessons:
+          - {id: "08.1", slug: relational-model-sql, title: "The relational model and SQL fundamentals"}
+          - {id: "08.2", slug: joins-windows, title: "Joins, aggregation and window functions"}
+          - {id: "08.3", slug: query-plans-indexes, title: "Query plans, indexes and performance"}
+          - {id: "08.4", slug: transactions-oltp-olap, title: "Transactions, isolation and OLTP vs OLAP"}
+
+      - id: "09"
+        dir: 09-data-modeling
+        title: "Data Modeling"
+        hours: 20
+        blurb: >
+          The schema is the API of your data. Design it badly and every downstream team pays interest forever.
+        outcomes:
+          - "Normalize a schema to 3NF and explain when to denormalize."
+          - "Design star schemas with facts, dimensions, grain and slowly changing dimensions."
+          - "Choose between dimensional models, wide tables and data vault for a given use case."
+        selfcheck:
+          - "What is the grain of a fact table and why do you declare it first?"
+        lessons:
+          - {id: "09.1", slug: normalization, title: "Normalization and entity modeling"}
+          - {id: "09.2", slug: dimensional-modeling, title: "Dimensional modeling: facts, dimensions and SCDs"}
+
+      - id: "10"
+        dir: 10-data-wrangling
+        title: "Data Wrangling and Analysis"
+        hours: 40
+        blurb: >
+          Eighty percent of the job, zero percent of the glamour.
+        outcomes:
+          - "Use pandas efficiently: indexing, groupby, merge, reshape, dtypes, and avoiding the classic traps."
+          - "Use Polars and DuckDB for fast single-node analytics on data bigger than RAM."
+          - "Profile and clean data, and encode data quality expectations as tests."
+          - "Run exploratory analyses and build honest visualizations that communicate a result."
+        selfcheck:
+          - "What did copy-on-write change in pandas 3, and why does `df[mask]['col'] = 0` no longer modify anything?"
+          - "How would you query a 20 GB Parquet file on a laptop with 16 GB of RAM?"
+        lessons:
+          - {id: "10.1", slug: pandas, title: "pandas without the pain"}
+          - {id: "10.2", slug: polars-duckdb, title: "Polars and DuckDB: the modern single-node stack"}
+          - {id: "10.3", slug: cleaning-quality, title: "Data cleaning and data quality"}
+          - {id: "10.4", slug: eda-visualization, title: "Exploratory analysis and visualization that says something"}
+
+      - id: "11"
+        dir: 11-storage-formats
+        title: "Storage, Formats and Architecture"
+        hours: 20
+        blurb: >
+          Where the bytes live, what shape they have, and why that decides your cloud bill.
+        outcomes:
+          - "Choose between row and columnar formats (CSV, JSON, Avro, Parquet, Arrow) and explain encodings, compression and predicate pushdown."
+          - "Design object storage layouts with partitioning, and avoid the small files problem."
+          - "Explain data lakes, warehouses and lakehouses, table formats like Iceberg and Delta, and the medallion architecture."
+        selfcheck:
+          - "Why is Parquet so much faster than CSV for `SELECT avg(price) FROM sales`?"
+        lessons:
+          - {id: "11.1", slug: file-formats, title: "File formats: CSV, JSON, Parquet, Avro, Arrow"}
+          - {id: "11.2", slug: lakes-warehouses-lakehouses, title: "Lakes, warehouses and lakehouses"}
+
+      - id: "12"
+        dir: 12-distributed-processing
+        title: "Distributed Processing"
+        hours: 25
+        blurb: >
+          When one machine is not enough, and how to tell whether it really isn't.
+        outcomes:
+          - "Explain the MapReduce model, partitioning, shuffles and the Spark execution model (DAGs, stages, tasks)."
+          - "Write PySpark DataFrame jobs and diagnose skew, spills and bad joins."
+          - "Decide when distributed processing is justified and when DuckDB on one box wins."
+        selfcheck:
+          - "What is a shuffle and why is it expensive?"
+        lessons:
+          - {id: "12.1", slug: mapreduce-spark-model, title: "From MapReduce to Spark: the distributed model"}
+          - {id: "12.2", slug: spark-in-practice, title: "Spark in practice: partitions, shuffles, skew"}
+
+      - id: "13"
+        dir: 13-pipelines-orchestration
+        title: "Pipelines and Orchestration"
+        hours: 30
+        blurb: >
+          A pipeline that only works when you run it by hand is a hobby, not a pipeline.
+        outcomes:
+          - "Design ETL/ELT pipelines that are idempotent, incremental and backfillable."
+          - "Orchestrate pipelines with Airflow or Dagster, including retries, sensors, SLAs and alerting."
+          - "Build tested transformation layers with dbt."
+        selfcheck:
+          - "What does it mean for a pipeline task to be idempotent, and why do you care at 3 AM?"
+        lessons:
+          - {id: "13.1", slug: etl-elt-idempotency, title: "ETL, ELT, idempotency and backfills"}
+          - {id: "13.2", slug: orchestration, title: "Orchestration with Airflow and Dagster"}
+          - {id: "13.3", slug: dbt, title: "Transformations and tests with dbt"}
+
+      - id: "14"
+        dir: 14-streaming
+        title: "Streaming"
+        hours: 25
+        blurb: >
+          Data that doesn't wait for your nightly batch job.
+        outcomes:
+          - "Explain logs, topics, partitions, consumer groups and offsets in Kafka."
+          - "Reason about event time vs processing time, windows, watermarks, state and delivery guarantees."
+          - "Build a small streaming pipeline with change data capture."
+        selfcheck:
+          - "What is a watermark and what happens to events that arrive after it?"
+        lessons:
+          - {id: "14.1", slug: kafka-event-driven, title: "Logs, Kafka and event-driven architecture"}
+          - {id: "14.2", slug: stream-processing, title: "Stream processing: time, windows, state and exactly-once"}
+
+      - id: "15"
+        dir: 15-governance-security
+        title: "Governance, Security and Reliability"
+        hours: 25
+        blurb: >
+          Your data platform is the most valuable target in the company. Treat it that way.
+        outcomes:
+          - "Threat-model a data platform: IAM, least privilege, encryption, secrets, network boundaries."
+          - "Handle PII correctly: classification, masking, retention, and the basics of GDPR-style obligations."
+          - "Use catalogs, lineage and data contracts to keep producers and consumers honest."
+          - "Run data observability: freshness, volume, schema and distribution checks, alerting and on-call."
+        selfcheck:
+          - "Where do credentials usually leak in a data platform?"
+        lessons:
+          - {id: "15.1", slug: securing-data-platforms, title: "Securing data platforms"}
+          - {id: "15.2", slug: privacy-lineage-contracts, title: "Privacy, lineage, catalogs and data contracts"}
+          - {id: "15.3", slug: observability-oncall, title: "Data observability and on-call"}
+
+  - id: 3
+    dir: part-3-classical-ml
+    title: "Classical Machine Learning"
+    blurb: >
+      Statistical learning, derived and implemented from scratch, then used properly with scikit-learn. Most ML in
+      production is still this, and anybody who tells you otherwise has never had to explain a model to an auditor.
+    modules:
+      - id: "16"
+        dir: 16-learning-problem
+        title: "The Learning Problem"
+        hours: 25
+        blurb: >
+          Before algorithms: what does it even mean to learn from data, and when can you trust it?
+        outcomes:
+          - "Frame a problem as supervised, unsupervised, or not-ML-at-all, with a loss and a baseline."
+          - "Explain empirical risk minimization, generalization error, bias, variance and model capacity."
+          - "Explain PAC learning, VC dimension, double descent and the curse of dimensionality at a working level."
+        selfcheck:
+          - "Why is training error a biased estimate of test error?"
+        lessons:
+          - {id: "16.1", slug: framing, title: "Framing: what learning actually is"}
+          - {id: "16.2", slug: generalization-bias-variance, title: "Generalization, bias and variance"}
+          - {id: "16.3", slug: learning-theory, title: "Learning theory: PAC, VC and the curse of dimensionality"}
+
+      - id: "17"
+        dir: 17-linear-models
+        title: "Linear Models"
+        hours: 35
+        blurb: >
+          The most underrated models in the business. Also the gateway to neural networks.
+        outcomes:
+          - "Derive linear regression as least squares, as a projection and as maximum likelihood, and implement it."
+          - "Use ridge, lasso and elastic net, and explain them as priors and as constraints."
+          - "Derive and implement logistic regression and softmax regression with gradient descent."
+          - "Explain generalized linear models and choose link functions and losses for counts and rates."
+        selfcheck:
+          - "Why does lasso produce exactly-zero coefficients and ridge doesn't?"
+        lessons:
+          - {id: "17.1", slug: linear-regression, title: "Linear regression three ways"}
+          - {id: "17.2", slug: regularization, title: "Regularization: ridge, lasso, elastic net"}
+          - {id: "17.3", slug: logistic-regression-glms, title: "Logistic regression and GLMs"}
+          - {id: "17.4", slug: softmax-regression, title: "Multiclass, softmax and the road to neural nets"}
+
+      - id: "18"
+        dir: 18-evaluation
+        title: "Evaluation"
+        hours: 30
+        blurb: >
+          The module that protects you from your own optimism.
+        outcomes:
+          - "Design train/validation/test splits and cross-validation for i.i.d., grouped and temporal data."
+          - "Choose and compute metrics: accuracy, precision, recall, F1, ROC-AUC, PR-AUC, log loss, MAE, RMSE, MAPE, R²."
+          - "Calibrate probabilities, choose thresholds from business costs, and read reliability diagrams."
+          - "Detect and prevent leakage, and deal with class imbalance without fooling yourself."
+        selfcheck:
+          - "Why can ROC-AUC look great on a dataset with 0.1% positives while the model is useless?"
+        lessons:
+          - {id: "18.1", slug: splits-cross-validation, title: "Splits and cross-validation that don't lie"}
+          - {id: "18.2", slug: metrics, title: "Classification and regression metrics"}
+          - {id: "18.3", slug: calibration-thresholds, title: "Calibration, thresholds and costs"}
+          - {id: "18.4", slug: leakage-imbalance, title: "Leakage, imbalance and other ways to fool yourself"}
+
+      - id: "19"
+        dir: 19-instance-kernel-probabilistic
+        title: "Instance, Probabilistic and Kernel Methods"
+        hours: 25
+        blurb: >
+          Three families of classic models, each with an idea you will see again in deep learning.
+        outcomes:
+          - "Implement k-nearest neighbors, pick distance metrics and explain its failure in high dimensions."
+          - "Derive Naive Bayes and Gaussian discriminant analysis, and contrast generative and discriminative models."
+          - "Derive the SVM primal and dual, explain the kernel trick and tune C and gamma."
+        selfcheck:
+          - "What does the kernel trick buy you, computationally?"
+        lessons:
+          - {id: "19.1", slug: knn, title: "k-Nearest neighbors and distances"}
+          - {id: "19.2", slug: naive-bayes-generative, title: "Naive Bayes and generative classifiers"}
+          - {id: "19.3", slug: svm-kernels, title: "Support vector machines and kernels"}
+
+      - id: "20"
+        dir: 20-trees-ensembles
+        title: "Trees and Ensembles"
+        hours: 35
+        blurb: >
+          If your data lives in a table, this is probably the module that pays your salary.
+        outcomes:
+          - "Implement a decision tree with Gini/entropy splits and explain pruning."
+          - "Explain why bagging reduces variance and how random forests decorrelate trees."
+          - "Derive gradient boosting as gradient descent in function space and implement it."
+          - "Tune XGBoost, LightGBM and CatBoost, and handle categorical features, missing values and early stopping."
+        selfcheck:
+          - "Why do random forests not overfit as you add trees, but boosting can?"
+        lessons:
+          - {id: "20.1", slug: decision-trees, title: "Decision trees"}
+          - {id: "20.2", slug: bagging-random-forests, title: "Bagging and random forests"}
+          - {id: "20.3", slug: boosting, title: "Boosting: from AdaBoost to gradient boosting"}
+          - {id: "20.4", slug: gbdt-in-practice, title: "XGBoost, LightGBM and CatBoost in the real world"}
+
+      - id: "21"
+        dir: 21-unsupervised
+        title: "Unsupervised Learning"
+        hours: 30
+        blurb: >
+          Finding structure when nobody gave you labels. Also finding structure that isn't there, if you're careless.
+        outcomes:
+          - "Implement k-means and k-means++, and use hierarchical clustering and DBSCAN/HDBSCAN appropriately."
+          - "Derive EM for Gaussian mixture models."
+          - "Derive PCA from variance maximization and from the SVD, and use it correctly."
+          - "Use t-SNE and UMAP for visualization without over-interpreting the pictures."
+        selfcheck:
+          - "Why do cluster sizes and distances in a t-SNE plot mean almost nothing?"
+        lessons:
+          - {id: "21.1", slug: clustering, title: "Clustering: k-means, hierarchical, DBSCAN"}
+          - {id: "21.2", slug: gmm-em, title: "Gaussian mixtures and EM"}
+          - {id: "21.3", slug: pca, title: "PCA and linear dimensionality reduction"}
+          - {id: "21.4", slug: manifold-learning, title: "Manifold learning: t-SNE and UMAP"}
+
+      - id: "22"
+        dir: 22-practical-workflow
+        title: "The Practical Workflow"
+        hours: 25
+        blurb: >
+          How the pieces fit together in a real project.
+        outcomes:
+          - "Engineer features for numeric, categorical, text and datetime data inside leak-free pipelines."
+          - "Tune hyperparameters with random search and Bayesian optimization (Optuna), with proper nested evaluation."
+          - "Explain models with permutation importance, partial dependence and SHAP, and know the limits of each."
+        selfcheck:
+          - "Why must scaling be fit inside the cross-validation loop?"
+        lessons:
+          - {id: "22.1", slug: feature-engineering, title: "Feature engineering and pipelines"}
+          - {id: "22.2", slug: hyperparameter-optimization, title: "Hyperparameter optimization"}
+          - {id: "22.3", slug: interpretability, title: "Interpretability: permutation importance, PDP, SHAP"}
+
+      - id: "23"
+        dir: 23-applied-domains
+        title: "Applied Domains"
+        hours: 40
+        blurb: >
+          Four kinds of problems that show up in real jobs constantly and in toy courses almost never.
+        outcomes:
+          - "Forecast time series with baselines, ETS/ARIMA and gradient boosting, and backtest correctly."
+          - "Build recommender systems with collaborative filtering, matrix factorization and two-tower retrieval."
+          - "Detect anomalies with statistical methods, isolation forests and reconstruction error."
+          - "Use Bayesian inference and Gaussian processes, and quantify uncertainty."
+        selfcheck:
+          - "Why can't you use random K-fold cross-validation on a time series?"
+        lessons:
+          - {id: "23.1", slug: time-series, title: "Time series forecasting"}
+          - {id: "23.2", slug: recommender-systems, title: "Recommender systems"}
+          - {id: "23.3", slug: anomaly-detection, title: "Anomaly detection"}
+          - {id: "23.4", slug: bayesian-gaussian-processes, title: "Bayesian methods and Gaussian processes"}
+
+  - id: 4
+    dir: part-4-deep-learning
+    title: "Deep Learning"
+    blurb: >
+      From a single neuron to transformers, diffusion models and multi-GPU training. You will build an autograd
+      engine yourself before you are allowed to touch PyTorch, because after that PyTorch stops being magic.
+    modules:
+      - id: "24"
+        dir: 24-neural-nets-from-scratch
+        title: "Neural Networks from Scratch"
+        hours: 30
+        blurb: >
+          No frameworks. Just NumPy, the chain rule and stubbornness.
+        outcomes:
+          - "Explain the MLP, activation functions and universal approximation."
+          - "Derive backpropagation for an MLP in matrix form."
+          - "Build a scalar and a tensor autograd engine and train a network with it."
+        selfcheck:
+          - "Why do we need non-linear activations?"
+        lessons:
+          - {id: "24.1", slug: neurons-to-mlps, title: "From neurons to multilayer perceptrons"}
+          - {id: "24.2", slug: backpropagation, title: "Backpropagation, derived properly"}
+          - {id: "24.3", slug: autograd-engine, title: "Building an autograd engine"}
+
+      - id: "25"
+        dir: 25-pytorch
+        title: "PyTorch"
+        hours: 25
+        blurb: >
+          The framework, properly. Not the tutorial, the framework.
+        outcomes:
+          - "Use tensors, autograd, views, broadcasting and devices without surprises."
+          - "Write nn.Modules, Datasets, DataLoaders and a clean training loop with evaluation and checkpointing."
+          - "Use GPUs, mixed precision and torch.compile, and make runs reproducible."
+        selfcheck:
+          - "What does `loss.backward()` do to `.grad`, and why do you call `zero_grad()`?"
+        lessons:
+          - {id: "25.1", slug: tensors-autograd, title: "Tensors and autograd"}
+          - {id: "25.2", slug: modules-training-loop, title: "Modules, data loading and the training loop"}
+          - {id: "25.3", slug: gpus-mixed-precision, title: "GPUs, mixed precision and reproducibility"}
+
+      - id: "26"
+        dir: 26-training-deep-networks
+        title: "Training Deep Networks"
+        hours: 40
+        blurb: >
+          Why the same architecture trains beautifully for one person and diverges for another.
+        outcomes:
+          - "Implement and compare SGD, momentum, Nesterov, RMSProp, Adam and AdamW."
+          - "Choose initializations and learning-rate schedules (warmup, cosine, one-cycle) and read training curves."
+          - "Regularize with weight decay, dropout, data augmentation, label smoothing and early stopping."
+          - "Explain BatchNorm, LayerNorm, RMSNorm and residual connections, and why they make deep nets trainable."
+          - "Debug training systematically: overfit one batch, check gradients, check data, check the loss."
+        selfcheck:
+          - "What is the difference between L2 regularization and decoupled weight decay in Adam?"
+        lessons:
+          - {id: "26.1", slug: optimizers, title: "Optimizers: SGD, momentum, Adam, AdamW"}
+          - {id: "26.2", slug: init-schedules-dynamics, title: "Initialization, learning rate schedules and training dynamics"}
+          - {id: "26.3", slug: regularization-dl, title: "Regularization: weight decay, dropout, augmentation"}
+          - {id: "26.4", slug: normalization-residuals, title: "Normalization and residual connections"}
+          - {id: "26.5", slug: training-recipe, title: "A recipe for training and debugging neural networks"}
+
+      - id: "27"
+        dir: 27-computer-vision
+        title: "Computer Vision"
+        hours: 45
+        blurb: >
+          Pixels in, decisions out.
+        outcomes:
+          - "Implement convolution and pooling and compute receptive fields, output shapes and parameter counts."
+          - "Explain the evolution of CNN architectures from LeNet to ResNet to ConvNeXt."
+          - "Fine-tune pretrained models with transfer learning."
+          - "Build and evaluate object detectors (IoU, NMS, mAP; two-stage, one-stage, DETR)."
+          - "Build segmentation models (U-Net, Mask R-CNN) and use promptable segmentation (SAM)."
+        selfcheck:
+          - "What is the output shape of a 3x3 conv with stride 2 and padding 1 on a 64x64 input?"
+        lessons:
+          - {id: "27.1", slug: convolutions, title: "Convolutions"}
+          - {id: "27.2", slug: cnn-architectures, title: "CNN architectures: LeNet to ConvNeXt"}
+          - {id: "27.3", slug: transfer-learning, title: "Transfer learning"}
+          - {id: "27.4", slug: object-detection, title: "Object detection"}
+          - {id: "27.5", slug: segmentation, title: "Segmentation"}
+
+      - id: "28"
+        dir: 28-sequence-models
+        title: "Sequence Models"
+        hours: 20
+        blurb: >
+          Before transformers ate the world. Still worth knowing, for history and for streaming problems.
+        outcomes:
+          - "Implement an RNN and backpropagation through time; explain vanishing and exploding gradients."
+          - "Explain LSTM and GRU gating and seq2seq with attention."
+        selfcheck:
+          - "Why does an LSTM's cell state help gradients survive?"
+        lessons:
+          - {id: "28.1", slug: rnns-bptt, title: "Recurrent networks and backprop through time"}
+          - {id: "28.2", slug: lstm-gru-seq2seq, title: "LSTM, GRU and seq2seq with attention"}
+
+      - id: "29"
+        dir: 29-transformers
+        title: "Transformers"
+        hours: 35
+        blurb: >
+          The architecture behind almost everything interesting since 2017, built from the ground up.
+        outcomes:
+          - "Derive scaled dot-product attention and multi-head attention and implement them."
+          - "Build a transformer block (pre-norm, residuals, MLP) from scratch and train it."
+          - "Explain positional encodings (sinusoidal, learned, RoPE, ALiBi) and efficient attention (FlashAttention, sparse, linear)."
+        selfcheck:
+          - "Why do we divide by sqrt(d_k) in attention?"
+        lessons:
+          - {id: "29.1", slug: attention, title: "Attention from first principles"}
+          - {id: "29.2", slug: transformer-block, title: "The transformer block, built from scratch"}
+          - {id: "29.3", slug: positions-efficiency, title: "Positions, efficiency and FlashAttention"}
+
+      - id: "30"
+        dir: 30-representation-learning
+        title: "Representation Learning"
+        hours: 20
+        blurb: >
+          Learning useful features without labels, and connecting images to text.
+        outcomes:
+          - "Explain and implement contrastive learning (InfoNCE, SimCLR) and non-contrastive methods (BYOL, DINO)."
+          - "Explain vision transformers and CLIP, and use CLIP for zero-shot classification and retrieval."
+        selfcheck:
+          - "What prevents representation collapse in contrastive learning?"
+        lessons:
+          - {id: "30.1", slug: self-supervised, title: "Self-supervised and contrastive learning"}
+          - {id: "30.2", slug: vit-clip, title: "Vision transformers and CLIP"}
+
+      - id: "31"
+        dir: 31-generative-models
+        title: "Generative Models"
+        hours: 40
+        blurb: >
+          Teaching machines to make things, and understanding the math instead of just the pretty samples.
+        outcomes:
+          - "Derive the ELBO and implement a VAE with the reparameterization trick."
+          - "Explain the GAN minimax game, its failure modes, and the fixes (WGAN-GP, spectral norm)."
+          - "Derive and implement a DDPM diffusion model."
+          - "Explain flow matching, latent diffusion, and classifier-free guidance."
+        selfcheck:
+          - "Why can't you backpropagate through sampling without the reparameterization trick?"
+        lessons:
+          - {id: "31.1", slug: autoencoders-vae, title: "Autoencoders and VAEs"}
+          - {id: "31.2", slug: gans, title: "GANs"}
+          - {id: "31.3", slug: diffusion, title: "Diffusion models"}
+          - {id: "31.4", slug: flow-matching-latent-diffusion, title: "Flow matching, latent diffusion and guidance"}
+
+      - id: "32"
+        dir: 32-graph-neural-networks
+        title: "Graph Neural Networks"
+        hours: 10
+        blurb: >
+          For data that is a network, not a table or a grid.
+        outcomes:
+          - "Explain message passing, GCN, GraphSAGE and GAT, and implement a GCN."
+        selfcheck:
+          - "What is over-smoothing?"
+        lessons:
+          - {id: "32.1", slug: message-passing, title: "Message passing and GNNs"}
+
+      - id: "33"
+        dir: 33-dl-at-scale
+        title: "Deep Learning at Scale"
+        hours: 30
+        blurb: >
+          What changes when the model doesn't fit on one GPU and the bill has six digits.
+        outcomes:
+          - "Estimate FLOPs, memory (weights, gradients, optimizer state, activations) and arithmetic intensity for a training run."
+          - "Explain and use data parallelism (DDP), sharded training (FSDP/ZeRO), tensor and pipeline parallelism."
+          - "Profile training, use activation checkpointing, fused kernels and torch.compile."
+        selfcheck:
+          - "How much GPU memory does full fine-tuning of a 7B model with Adam in mixed precision need, roughly?"
+        lessons:
+          - {id: "33.1", slug: gpu-arithmetic, title: "GPU arithmetic: memory, FLOPs and bandwidth"}
+          - {id: "33.2", slug: distributed-training, title: "Distributed training: DDP, FSDP, tensor and pipeline parallelism"}
+          - {id: "33.3", slug: profiling-speed, title: "Profiling and making it fast"}
+
+  - id: 5
+    dir: part-5-language-models
+    title: "Language Models"
+    blurb: >
+      From n-grams to reasoning models. You will write a tokenizer and a GPT from scratch, then learn how the big
+      ones are pretrained, served, fine-tuned and aligned.
+    modules:
+      - id: "34"
+        dir: 34-classical-nlp
+        title: "Classical NLP"
+        hours: 25
+        blurb: >
+          The ideas that came before transformers, and still run half of the text processing in the world.
+        outcomes:
+          - "Normalize and tokenize text; build n-gram language models with smoothing and measure perplexity."
+          - "Build bag-of-words and TF-IDF classifiers, and explain sequence labeling (POS, NER) with HMMs and CRFs."
+          - "Train and evaluate word2vec embeddings and explain GloVe."
+        selfcheck:
+          - "What is perplexity, in one sentence?"
+        lessons:
+          - {id: "34.1", slug: ngram-lms, title: "Text, tokens and n-gram language models"}
+          - {id: "34.2", slug: bow-tfidf-sequence-labeling, title: "Bag of words, TF-IDF and sequence labeling"}
+          - {id: "34.3", slug: word-embeddings, title: "Word embeddings: word2vec and GloVe"}
+
+      - id: "35"
+        dir: 35-building-an-llm
+        title: "Building an LLM"
+        hours: 50
+        blurb: >
+          The whole stack of a decoder-only language model, minus the hundred million dollars.
+        outcomes:
+          - "Implement byte-level BPE tokenization."
+          - "Implement and train a GPT-style decoder-only transformer."
+          - "Explain pretraining data pipelines: crawling, extraction, filtering, deduplication, mixing, contamination."
+          - "Use scaling laws to budget compute, parameters and tokens."
+          - "Explain the modern LLM architecture: RoPE, RMSNorm, SwiGLU, GQA, mixture of experts."
+        selfcheck:
+          - "Under Chinchilla-style scaling, roughly how many tokens should a 1B parameter model see?"
+        lessons:
+          - {id: "35.1", slug: bpe-tokenizer, title: "Tokenization: BPE from scratch"}
+          - {id: "35.2", slug: gpt-from-scratch, title: "A GPT from scratch"}
+          - {id: "35.3", slug: pretraining-data, title: "Pretraining data"}
+          - {id: "35.4", slug: scaling-laws, title: "Scaling laws and compute budgets"}
+          - {id: "35.5", slug: modern-architecture, title: "The modern LLM architecture: RoPE, RMSNorm, SwiGLU, GQA, MoE"}
+
+      - id: "36"
+        dir: 36-encoders
+        title: "Encoders and Encoder-Decoders"
+        hours: 15
+        blurb: >
+          The models that quietly power search, classification and extraction everywhere.
+        outcomes:
+          - "Explain masked language modeling (BERT) and span corruption (T5)."
+          - "Fine-tune an encoder for classification and token classification, and train sentence embeddings."
+        selfcheck:
+          - "Why is BERT bad at generating text?"
+        lessons:
+          - {id: "36.1", slug: bert-t5, title: "BERT, T5 and fine-tuning for NLP tasks"}
+
+      - id: "37"
+        dir: 37-inference
+        title: "Inference"
+        hours: 25
+        blurb: >
+          Training happens once. Inference happens every time a user types something. That's where the money goes.
+        outcomes:
+          - "Implement greedy, beam, temperature, top-k and top-p decoding, and constrained decoding."
+          - "Explain the KV cache, continuous batching, PagedAttention and speculative decoding."
+          - "Quantize models (int8, int4, GPTQ, AWQ, GGUF) and measure the quality cost."
+        selfcheck:
+          - "How big is the KV cache for a 32-layer model with 8 KV heads of dim 128 at 8k context in fp16?"
+        lessons:
+          - {id: "37.1", slug: decoding, title: "Decoding strategies"}
+          - {id: "37.2", slug: kv-cache-serving, title: "KV cache, batching and serving engines"}
+          - {id: "37.3", slug: quantization, title: "Quantization"}
+
+      - id: "38"
+        dir: 38-post-training
+        title: "Post-Training"
+        hours: 40
+        blurb: >
+          How a text predictor becomes an assistant, and how assistants learned to reason.
+        outcomes:
+          - "Run supervised fine-tuning with chat templates and loss masking."
+          - "Implement LoRA and use QLoRA to fine-tune on consumer hardware."
+          - "Explain RLHF (reward models, PPO with KL penalty) and derive and implement DPO."
+          - "Explain reasoning models: chain of thought, RL with verifiable rewards, GRPO and test-time compute."
+        selfcheck:
+          - "Why does RLHF include a KL penalty to the reference model?"
+        lessons:
+          - {id: "38.1", slug: sft, title: "Supervised fine-tuning and instruction tuning"}
+          - {id: "38.2", slug: lora-qlora, title: "Parameter-efficient fine-tuning: LoRA and QLoRA"}
+          - {id: "38.3", slug: rlhf-dpo, title: "Preference optimization: RLHF and DPO"}
+          - {id: "38.4", slug: reasoning-rlvr, title: "Reasoning models and RL with verifiable rewards"}
+
+      - id: "39"
+        dir: 39-evaluating-extending-llms
+        title: "Evaluating and Extending LLMs"
+        hours: 20
+        blurb: >
+          How to tell if a model is good, and how models learned to see and hear.
+        outcomes:
+          - "Evaluate LLMs with benchmarks, held-out tasks, LLM-as-judge and human evaluation, and detect contamination."
+          - "Explain vision-language models and speech models (Whisper-style) and how modalities are fused."
+        selfcheck:
+          - "Name three ways a benchmark score can be misleading."
+        lessons:
+          - {id: "39.1", slug: evaluating-llms, title: "Evaluating language models"}
+          - {id: "39.2", slug: multimodal, title: "Multimodal models: vision-language and speech"}
+
+  - id: 6
+    dir: part-6-ai-engineering
+    title: "AI Engineering"
+    blurb: >
+      Building products on top of foundation models: APIs, prompts, tools, retrieval, agents, evals, security and
+      cost. This is where most new AI jobs are, and where most of the embarrassing incidents happen.
+    modules:
+      - id: "40"
+        dir: 40-building-on-foundation-models
+        title: "Building on Foundation Models"
+        hours: 25
+        blurb: >
+          The LLM is a component. Treat it like one.
+        outcomes:
+          - "Call LLM APIs robustly: streaming, retries, timeouts, rate limits, token accounting and cost estimation."
+          - "Engineer prompts systematically and get reliable structured outputs validated against schemas."
+          - "Implement tool use / function calling loops safely."
+        selfcheck:
+          - "How do you make an LLM return JSON you can actually trust?"
+        lessons:
+          - {id: "40.1", slug: llm-as-api, title: "The LLM as an API: tokens, latency and money"}
+          - {id: "40.2", slug: prompting-structured-outputs, title: "Prompting as programming and structured outputs"}
+          - {id: "40.3", slug: tool-use, title: "Tool use and function calling"}
+
+      - id: "41"
+        dir: 41-retrieval
+        title: "Retrieval"
+        hours: 35
+        blurb: >
+          Giving the model the right context at the right time. Harder than it sounds.
+        outcomes:
+          - "Use embeddings for semantic search and pick an embedding model with evidence."
+          - "Explain and tune approximate nearest neighbor indexes (HNSW, IVF, PQ)."
+          - "Build a RAG pipeline with chunking, hybrid search (BM25 + dense), reranking and citations."
+          - "Evaluate retrieval (recall@k, MRR, nDCG) and generation (faithfulness), and use advanced patterns (query rewriting, HyDE, GraphRAG, agentic retrieval)."
+        selfcheck:
+          - "Why does pure vector search fail on product codes and error IDs?"
+        lessons:
+          - {id: "41.1", slug: embeddings-semantic-search, title: "Embeddings and semantic search"}
+          - {id: "41.2", slug: vector-indexes, title: "Vector indexes: HNSW, IVF, PQ"}
+          - {id: "41.3", slug: rag, title: "RAG done properly"}
+          - {id: "41.4", slug: advanced-rag-evaluation, title: "Advanced RAG and evaluating retrieval"}
+
+      - id: "42"
+        dir: 42-agents
+        title: "Agents"
+        hours: 30
+        blurb: >
+          An LLM in a loop with tools. Capable, fragile, and a security team's nightmare.
+        outcomes:
+          - "Build an agent loop (ReAct) with planning, memory and stopping conditions."
+          - "Build and consume MCP servers and design tool interfaces for models."
+          - "Design multi-agent and workflow systems, and know when a plain workflow beats an agent."
+        selfcheck:
+          - "When should you not use an agent?"
+        lessons:
+          - {id: "42.1", slug: agent-loop, title: "The agent loop: ReAct, planning and memory"}
+          - {id: "42.2", slug: mcp-tools, title: "MCP and tool ecosystems"}
+          - {id: "42.3", slug: multi-agent-workflows, title: "Multi-agent systems and workflow design"}
+
+      - id: "43"
+        dir: 43-evals-observability
+        title: "Evals and Observability"
+        hours: 20
+        blurb: >
+          If you can't measure it, you're doing vibes-based engineering.
+        outcomes:
+          - "Build eval suites from real failures: golden sets, assertions, LLM-as-judge with calibration."
+          - "Trace and monitor LLM applications: latency, cost, quality, feedback and regressions."
+        selfcheck:
+          - "How do you know your LLM judge agrees with humans?"
+        lessons:
+          - {id: "43.1", slug: eval-suites, title: "Building eval suites"}
+          - {id: "43.2", slug: tracing-monitoring, title: "Tracing, monitoring and feedback loops"}
+
+      - id: "44"
+        dir: 44-llm-security
+        title: "LLM Security"
+        hours: 20
+        blurb: >
+          My favourite module. Everything you build in Part VI, we now break.
+        outcomes:
+          - "Explain and demonstrate direct and indirect prompt injection, jailbreaks and data exfiltration."
+          - "Apply the OWASP Top 10 for LLM applications to a real design."
+          - "Red-team an LLM application and build layered defenses and guardrails."
+        selfcheck:
+          - "Why can't you fix prompt injection with a better system prompt?"
+        lessons:
+          - {id: "44.1", slug: prompt-injection-owasp, title: "Prompt injection and the OWASP LLM Top 10"}
+          - {id: "44.2", slug: red-teaming-guardrails, title: "Red teaming and guardrails"}
+
+      - id: "45"
+        dir: 45-llm-production
+        title: "LLM Systems in Production"
+        hours: 20
+        blurb: >
+          Running this stuff for real users without going bankrupt.
+        outcomes:
+          - "Design LLM gateways with caching (exact and semantic), routing, fallbacks and budgets."
+          - "Self-host open-weight models with vLLM or llama.cpp and size the hardware."
+        selfcheck:
+          - "When is self-hosting cheaper than an API?"
+        lessons:
+          - {id: "45.1", slug: gateways-caching-routing, title: "Gateways, caching, routing and cost control"}
+          - {id: "45.2", slug: self-hosting, title: "Self-hosting open models"}
+
+  - id: 7
+    dir: part-7-reinforcement-learning
+    title: "Reinforcement Learning"
+    blurb: >
+      Learning from interaction instead of labels. Required for RLHF and reasoning models, useful for a lot more.
+    modules:
+      - id: "46"
+        dir: 46-reinforcement-learning
+        title: "Reinforcement Learning"
+        hours: 50
+        blurb: >
+          Sutton and Barto, condensed, implemented, and connected to the LLM world.
+        outcomes:
+          - "Solve multi-armed bandits with epsilon-greedy, UCB and Thompson sampling."
+          - "Formulate MDPs, derive the Bellman equations and solve them with value and policy iteration."
+          - "Implement Monte Carlo, SARSA and Q-learning."
+          - "Implement DQN with replay buffers and target networks."
+          - "Derive the policy gradient theorem and implement REINFORCE, actor-critic and PPO."
+          - "Explain MCTS and AlphaZero, and connect PPO/GRPO to LLM post-training."
+        selfcheck:
+          - "What is the difference between on-policy and off-policy learning?"
+        lessons:
+          - {id: "46.1", slug: bandits, title: "Bandits and exploration"}
+          - {id: "46.2", slug: mdps-bellman-dp, title: "MDPs, Bellman equations and dynamic programming"}
+          - {id: "46.3", slug: mc-td, title: "Monte Carlo and temporal difference: SARSA and Q-learning"}
+          - {id: "46.4", slug: dqn, title: "Deep Q-networks"}
+          - {id: "46.5", slug: policy-gradients, title: "Policy gradients and actor-critic"}
+          - {id: "46.6", slug: ppo-search, title: "PPO, search, and RL in the wild"}
+
+  - id: 8
+    dir: part-8-mlops
+    title: "MLOps and ML Systems"
+    blurb: >
+      The difference between a notebook and a product. System design, reproducibility, serving, testing,
+      deployment, monitoring, infrastructure, security and responsibility.
+    modules:
+      - id: "47"
+        dir: 47-ml-system-design
+        title: "ML System Design"
+        hours: 25
+        blurb: >
+          Thinking about the whole system before you write the first line.
+        outcomes:
+          - "Turn a business problem into an ML design doc: objective, metrics, data, baseline, architecture, risks."
+          - "Design end-to-end ML systems for search, recommendations, fraud and LLM products."
+        selfcheck:
+          - "What is the difference between an offline metric and an online metric, and why do they disagree?"
+        lessons:
+          - {id: "47.1", slug: design-doc, title: "From business problem to ML design doc"}
+          - {id: "47.2", slug: case-studies, title: "Design case studies"}
+
+      - id: "48"
+        dir: 48-reproducibility
+        title: "Reproducibility"
+        hours: 15
+        blurb: >
+          "It worked on my machine" is not a deployment strategy.
+        outcomes:
+          - "Track experiments and register models with MLflow."
+          - "Version data and pipelines (DVC), pin environments and make training runs reproducible."
+        selfcheck:
+          - "What do you need to store to reproduce a model exactly six months from now?"
+        lessons:
+          - {id: "48.1", slug: tracking-registry, title: "Experiment tracking and model registries"}
+          - {id: "48.2", slug: data-versioning, title: "Data versioning, pipelines and environments"}
+
+      - id: "49"
+        dir: 49-serving
+        title: "Serving"
+        hours: 30
+        blurb: >
+          Getting predictions to the people who need them, fast and cheaply.
+        outcomes:
+          - "Choose between batch, online and streaming inference and implement an online service with FastAPI."
+          - "Containerize models with Docker and deploy them on Kubernetes with autoscaling."
+          - "Optimize models for inference with ONNX, TensorRT-style compilation, distillation and pruning."
+        selfcheck:
+          - "Where does p99 latency come from in a model server?"
+        lessons:
+          - {id: "49.1", slug: serving-patterns, title: "Serving patterns: batch, online, streaming"}
+          - {id: "49.2", slug: containers-kubernetes, title: "Containers and Kubernetes for ML"}
+          - {id: "49.3", slug: small-fast-models, title: "Making models small and fast: ONNX, TensorRT, distillation, pruning"}
+
+      - id: "50"
+        dir: 50-testing-cicd-deployment
+        title: "Testing, CI/CD and Deployment"
+        hours: 20
+        blurb: >
+          Shipping models without holding your breath.
+        outcomes:
+          - "Test ML code, data and models; build CI/CD/CT pipelines for ML."
+          - "Deploy with shadow mode, canaries, A/B tests and bandits, and roll back safely."
+        selfcheck:
+          - "What would you test in a model before letting it replace the current one?"
+        lessons:
+          - {id: "50.1", slug: testing-cicd, title: "Testing ML systems and CI/CD/CT"}
+          - {id: "50.2", slug: deployment-strategies, title: "Deployment strategies: shadow, canary, A/B, bandits"}
+
+      - id: "51"
+        dir: 51-monitoring
+        title: "Monitoring"
+        hours: 15
+        blurb: >
+          Models rot. Monitoring is how you find out before the customers do.
+        outcomes:
+          - "Detect data drift, prediction drift and concept drift with PSI, KS tests and performance monitoring."
+          - "Design monitoring, alerting and retraining triggers, and handle delayed labels and feedback loops."
+        selfcheck:
+          - "How do you monitor a model whose labels arrive 90 days later?"
+        lessons:
+          - {id: "51.1", slug: drift-monitoring, title: "Drift, data quality and model monitoring"}
+
+      - id: "52"
+        dir: 52-cloud-infrastructure
+        title: "Cloud and Infrastructure"
+        hours: 15
+        blurb: >
+          Somebody else's computer, with a bill.
+        outcomes:
+          - "Use the core cloud primitives (compute, object storage, IAM, networking, managed ML) and infrastructure as code."
+          - "Choose GPU instances, estimate costs and avoid the classic cloud bill disasters."
+        selfcheck:
+          - "What is the cheapest way to run a nightly training job that takes four GPU-hours?"
+        lessons:
+          - {id: "52.1", slug: cloud-iac-cost, title: "Cloud, GPUs, infrastructure as code and cost"}
+
+      - id: "53"
+        dir: 53-ml-security
+        title: "Security of ML Systems"
+        hours: 20
+        blurb: >
+          The attack surface nobody put in the architecture diagram.
+        outcomes:
+          - "Implement and defend against evasion attacks (FGSM, PGD), poisoning and backdoors, model extraction and membership inference."
+          - "Secure the ML supply chain: unsafe serialization (pickle), model hubs, dependencies, SBOMs and signing."
+        selfcheck:
+          - "Why is `torch.load` on an untrusted file a remote code execution vulnerability?"
+        lessons:
+          - {id: "53.1", slug: adversarial-ml, title: "Adversarial machine learning"}
+          - {id: "53.2", slug: ml-supply-chain, title: "The ML supply chain"}
+
+      - id: "54"
+        dir: 54-responsible-ai
+        title: "Responsible AI"
+        hours: 25
+        blurb: >
+          Not a compliance checkbox. The part where your model meets actual human beings.
+        outcomes:
+          - "Measure and mitigate unfairness with group metrics, and explain the impossibility results."
+          - "Apply differential privacy (DP-SGD) and federated learning, and know their costs."
+          - "Document models and data (model cards, datasheets) and map systems to regulation (EU AI Act, NIST AI RMF)."
+        selfcheck:
+          - "Why can't a classifier generally satisfy calibration and equal error rates across groups at the same time?"
+        lessons:
+          - {id: "54.1", slug: fairness, title: "Fairness"}
+          - {id: "54.2", slug: privacy-dp-federated, title: "Privacy: differential privacy and federated learning"}
+          - {id: "54.3", slug: governance-regulation, title: "Governance, regulation and documentation"}
+
+  - id: 9
+    dir: part-9-capstones
+    title: "Capstones and Career"
+    blurb: >
+      Four projects that prove you can do the job, and some honest advice on getting paid for it.
+    modules:
+      - id: "55"
+        dir: 55-capstones
+        title: "Capstones"
+        hours: 240
+        blurb: >
+          No new theory. Just you, a spec, and the whole course behind you.
+        outcomes:
+          - "Build and operate an end-to-end data platform."
+          - "Ship, monitor and retrain a tabular ML product."
+          - "Pretrain and post-train a small language model and evaluate it honestly."
+          - "Build a production RAG agent, then attack it and fix what you find."
+        selfcheck:
+          - "There is no self-check. There is only the spec."
+        lessons:
+          - {id: "55.1", slug: capstone-a-data-platform, title: "Capstone A: the data platform"}
+          - {id: "55.2", slug: capstone-b-ml-product, title: "Capstone B: the tabular ML product"}
+          - {id: "55.3", slug: capstone-c-small-lm, title: "Capstone C: train and post-train a small language model"}
+          - {id: "55.4", slug: capstone-d-rag-agent, title: "Capstone D: a production RAG agent, attacked by you"}
+
+      - id: "56"
+        dir: 56-career
+        title: "Career"
+        hours: 10
+        blurb: >
+          Getting hired, and not becoming obsolete afterwards.
+        outcomes:
+          - "Build a portfolio that shows engineering, not tutorials."
+          - "Pass coding, ML theory and ML system design interviews."
+          - "Keep up with the field by reading papers efficiently and ignoring the noise."
+        selfcheck:
+          - "Could you explain your best project's biggest mistake in an interview?"
+        lessons:
+          - {id: "56.1", slug: portfolio-interviews, title: "Portfolio, interviews and ML system design interviews"}
+          - {id: "56.2", slug: staying-current, title: "Staying current without drowning"}

@@ -1,0 +1,52 @@
+name: labs
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  run-labs:
+    name: Parts ${{ matrix.parts }}
+    # Pinned rather than ubuntu-latest: the timings below were measured on this image, and a new one can change them.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        # One job per stretch of the course, sized on GitHub's 4-vCPU runners, which run these labs up to twice as slowly
+        # as a desktop: Part V takes about 65 minutes (it trains the small GPT, its fine-tunes and the LoRA variants),
+        # Part IV about 50, Part VI about 30 (it trains the GPT and the retrieval encoder on its own), the rest under 15.
+        include:
+          - {id: foundations, parts: "0 1 2 3"}
+          - {id: deep-learning, parts: "4"}
+          - {id: language-models, parts: "5"}
+          - {id: ai-engineering, parts: "6"}
+          - {id: rl-mlops-capstones, parts: "7 8 9"}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install CPU-only torch first (the default wheel drags in gigabytes of CUDA)
+        run: pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install the rest
+        run: pip install -r requirements.txt -r requirements-extras.txt
+      - name: Docs are in sync with course.yaml
+        run: |
+          python tools/build_docs.py
+          git diff --exit-code -- SYLLABUS.md STATUS.md 'part-*/README.md' 'part-*/*/README.md'
+      - name: Cache the small models that Parts V and VI train once and share
+        if: matrix.id == 'language-models' || matrix.id == 'ai-engineering'
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/no-shortcuts
+          key: shared-models-${{ matrix.id }}-${{ hashFiles('part-5-language-models/_shared/*.py', 'part-5-language-models/_shared/course_snapshot.json.gz', 'part-6-ai-engineering/_shared/*.py') }}
+      - name: Run the labs of Parts ${{ matrix.parts }}
+        # --timeout is per lab: generous, because the slowest (38.2, LoRA) takes 18 minutes on these runners, and still
+        # well inside the job's limit, so a lab that hangs fails with its name instead of taking the whole job down.
+        run: python tools/run_labs.py --part ${{ matrix.parts }} --timeout 2400
