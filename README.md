@@ -16,6 +16,14 @@ This course is my answer to that problem. It is long. It is not easy. It has mat
 
 I'm a systems engineer (technically still a student, the paperwork is slower than the learning), a certified AI engineer, and I've been writing software for more than fifteen years: AI systems that had to work outside of a demo, data platforms that had to be secure because the data was worth stealing, and a fair amount of penetration testing, which is a polite way of saying I get paid to find out how other people's systems break. That last part shows up all over this course. When I teach you RAG, I will also teach you how to attack it. When I teach you data pipelines, I will show you where the credentials leak. An engineer who doesn't know how their system fails is not an engineer yet. They are an optimist.
 
+## Addenda
+
+Standalone companions to the course, each one in its own branch of this repository. They aren't part of the syllabus and you don't need them to follow it; each covers something the course takes for granted.
+
+| # | Addendum | What it teaches |
+|---|---|---|
+| 1 | [Learning ML Libraries by Rebuilding Them](https://github.com/BlueRingsLabs/no-shortcuts/tree/addendum1/learning-ml-libraries-by-rebuilding-them) | How to learn any library from the inside instead of copying code from it. NumPy, pandas, scikit-learn, PyTorch and sentence-transformers are rebuilt as small miniatures in plain Python and checked against the real libraries (about 5,000 checks, run by CI), and the method is turned into habits: reading the docs, what to memorize, and going from copying code to writing it. |
+
 ## What "completing this course" is supposed to mean
 
 When you finish, you should be able to walk into a job as a **Data Engineer**, **Data Scientist**, **Machine Learning Engineer**, **Deep Learning Engineer** or **AI Engineer** and do the work. That means more than knowing what the words mean:
