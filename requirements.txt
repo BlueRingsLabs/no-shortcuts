@@ -1,0 +1,10 @@
+# The exact versions every output in the addendum was produced with, on Python 3.13.
+# Install the CPU-only build of torch first (see the README); this pin then accepts it.
+numpy==2.5.4
+pandas==3.1.0
+scipy==1.18.1
+scikit-learn==1.9.1
+torch==2.15.0
+transformers==5.21.0
+tokenizers==0.23.3
+sentence-transformers==6.2.0

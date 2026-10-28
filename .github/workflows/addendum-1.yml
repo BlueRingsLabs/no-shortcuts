@@ -1,0 +1,44 @@
+name: addendum-1
+
+on:
+  push:
+    branches: [addendum1/learning-ml-libraries-by-rebuilding-them]
+  pull_request:
+    branches: [addendum1/learning-ml-libraries-by-rebuilding-them]
+
+jobs:
+  checks:
+    name: Miniatures against the real libraries
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: code
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install CPU-only torch first (the default wheel drags in gigabytes of CUDA)
+        run: pip install torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Install the rest
+        run: pip install -r ../requirements.txt
+      - name: Cache the model of chapter G
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/huggingface
+          key: hf-all-MiniLM-L6-v2
+      - name: C. NumPy
+        run: python test_mini_numpy.py
+      - name: D. pandas
+        run: python test_mini_pandas.py
+      - name: E. scikit-learn
+        working-directory: code/sk
+        run: python test_mini_sklearn.py
+      - name: F. PyTorch
+        working-directory: code/torch_ch
+        run: python test_mini_torch.py
+      - name: G. sentence-transformers
+        working-directory: code/st
+        run: python test_mini_st.py
