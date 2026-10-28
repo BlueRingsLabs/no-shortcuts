@@ -325,7 +325,7 @@ The test for this chapter has two parts. The first tokenizes 2,000 random texts,
 largest difference in the vectors: 2.6e-07
 ```
 
-The remaining difference is float32 against float64 rounding. Our miniature computes in float64; PyTorch in float32.
+The remaining difference is float32 against float64 rounding. Our miniature computes in float64; PyTorch in float32. The last digits depend on the machine: on GitHub's CI runner the same test prints 2.0e-07. Anything around 1e-07 is the same result.
 
 Then I got greedy, and sent random characters from all over Unicode through both tokenizers, and they disagreed a lot. So I compared the first stage on every single code point from U+0020 to U+2FFFF (194,528 of them), each one between an "a" and a "b":
 

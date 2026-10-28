@@ -50,7 +50,7 @@ If your miniature passes, you understand the core of the library, the part every
 The miniatures are slow and incomplete on purpose. They're not meant to replace anything. They're meant to be small enough that you can hold the whole thing in your head.
 
 > [!NOTE]
-> Every snippet in this addendum was run before publishing, and every output shown is the real output. The versions used: Python 3.13.17, NumPy 2.5.4, pandas 3.1.0, scikit-learn 1.9.1, PyTorch 2.15.0 (on CPU), sentence-transformers 6.2.0 with transformers 5.21.0. If you use older versions, a few details change (the text points them out where it matters).
+> Every snippet in this addendum was run before publishing, and every output shown is the real output. The versions used: Python 3.13.17, NumPy 2.5.4, pandas 3.1.0, scikit-learn 1.9.1, PyTorch 2.15.0 (on CPU), sentence-transformers 6.2.0 with transformers 5.21.0. If you use older versions, a few details change (the text points them out where it matters). On another machine, floating-point results can differ in the last digit or two, and timings will differ more.
 
 ## 6. Who this is for
 
